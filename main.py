@@ -1917,8 +1917,8 @@ while running:
                                 winner_number = is_game_finished()
                                 if winner_number != 0:
                                     g_game_status = c_GAME_STATUS_FINISHED
-                                    #print_info("The winner is player " + str(winner_number))
-                                    #print_game_status("Finished")
+                                    print_info("The winner is player " + str(winner_number))
+                                    print_game_status("Finished")
                                 # снять выделение
                                 stroke.rect.center = (-100, -100)
                                 # сбросить флаги l_source_fl и l_dest_fl
@@ -1937,7 +1937,7 @@ while running:
                                 if g_turns[l_turn_result][7]:
                                     chosen_source_fig.can_move = True
                                     chosen_source_fig.in_composite_turn = True
-                                #print_player_move(str(g_CURRENT_PLAYER))
+                                print_player_move(str(g_CURRENT_PLAYER))
                                 if g_game_status != c_GAME_STATUS_FINISHED:
                                     while fl_check_possible_move:
                                         if num_of_losers == g_PLAYER_COUNT:
