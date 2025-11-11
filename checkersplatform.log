@@ -101,3 +101,200 @@
 2023-01-18 18:54:41.576697 log log closed correctly
 2023-01-18 18:54:48.375600 log new session created
 2023-01-18 18:55:42.863962 log log closed correctly
+2023-01-26 20:51:22.934212 log new session created
+2023-01-26 20:51:37.998966 load_game_rules colored_cell: no-numbers found
+2023-01-26 20:51:37.999013 load_game_rules colored_cell: '=' absent
+2023-01-26 20:51:37.999053 load_game_rules colored_cell: value out of range
+2023-01-26 20:51:37.999058 load_game_rules colored_cell: value out of range
+2023-01-26 20:51:37.999075 load_game_rules colored_cell: value out of range
+2023-01-26 20:51:38.006238 load_game_rules tn_directs -['9'] : value out of range
+2023-01-26 20:51:38.006465 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-01-26 20:51:43.964376 log log closed correctly
+2023-01-26 20:53:03.289258 log new session created
+2023-01-26 20:54:40.153686 log new session created
+2023-01-26 20:55:42.779142 log log closed correctly
+2023-01-26 20:59:05.165051 log new session created
+2023-01-26 20:59:25.783735 log log closed correctly
+2023-01-26 21:00:23.000036 log new session created
+2023-01-26 21:00:59.325621 log log closed correctly
+2023-01-26 21:01:13.253611 log new session created
+2023-01-26 21:01:30.723421 log log closed correctly
+2023-01-26 21:10:54.938905 log new session created
+2023-01-26 21:15:46.741118 log log closed correctly
+2023-01-28 18:49:21.911153 log new session created
+2023-01-28 18:49:48.757636 log log closed correctly
+2023-01-28 18:49:52.940553 log new session created
+2023-01-28 18:50:09.735401 log log closed correctly
+2023-01-28 18:50:43.150237 log new session created
+2023-01-28 18:50:57.497873 log log closed correctly
+2023-01-28 18:55:42.723080 log new session created
+2023-01-28 18:56:30.712151 log new session created
+2023-01-28 18:57:47.711953 log log closed correctly
+2023-01-28 18:58:00.253743 log new session created
+2023-01-28 18:59:07.770250 log log closed correctly
+2023-01-28 22:22:17.622675 log new session created
+2023-01-28 22:23:54.915471 log log closed correctly
+2023-01-29 22:23:18.545165 log new session created
+2023-01-29 22:25:38.675813 log new session created
+2023-01-29 22:34:40.938312 log log closed correctly
+2023-01-29 22:35:39.401379 log new session created
+2023-01-29 22:37:05.525900 log new session created
+2023-01-29 22:37:40.851465 log new session created
+2023-01-29 22:39:06.160027 log log closed correctly
+2023-01-29 22:44:49.580601 log new session created
+2023-01-29 22:45:24.279509 log log closed correctly
+2023-02-01 12:52:19.134400 log new session created
+2023-02-01 12:54:53.757668 log log closed correctly
+2023-02-20 13:56:12.055682 log new session created
+2023-02-20 13:56:25.046907 load_game_rules GB_SECOND_COLOR: ';' absent
+2023-02-20 13:56:35.630755 load_game_rules colored_cell: no-numbers found
+2023-02-20 13:56:35.630782 load_game_rules colored_cell: '=' absent
+2023-02-20 13:56:35.630830 load_game_rules colored_cell: value out of range
+2023-02-20 13:56:35.630836 load_game_rules colored_cell: value out of range
+2023-02-20 13:56:35.630860 load_game_rules colored_cell: value out of range
+2023-02-20 13:56:35.632649 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 13:56:35.632830 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-20 13:56:41.492509 log log closed correctly
+2023-02-20 14:09:29.430359 log new session created
+2023-02-20 14:09:35.257347 load_game_rules colored_cell: no-numbers found
+2023-02-20 14:09:35.257377 load_game_rules colored_cell: '=' absent
+2023-02-20 14:09:35.257429 load_game_rules colored_cell: value out of range
+2023-02-20 14:09:35.257436 load_game_rules colored_cell: value out of range
+2023-02-20 14:09:35.257473 load_game_rules colored_cell: value out of range
+2023-02-20 14:09:35.259370 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 14:09:35.259549 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-20 14:10:08.165544 log log closed correctly
+2023-02-20 14:11:03.756127 log new session created
+2023-02-20 14:11:09.710356 load_game_rules colored_cell: no-numbers found
+2023-02-20 14:11:09.710387 load_game_rules colored_cell: '=' absent
+2023-02-20 14:11:09.710437 load_game_rules colored_cell: value out of range
+2023-02-20 14:11:09.710444 load_game_rules colored_cell: value out of range
+2023-02-20 14:11:09.710469 load_game_rules colored_cell: value out of range
+2023-02-20 14:11:09.711666 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 14:11:09.711882 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-20 14:11:15.848057 log log closed correctly
+2023-02-20 14:12:14.426760 log new session created
+2023-02-20 14:12:29.141863 log new session created
+2023-02-20 14:12:49.584285 log log closed correctly
+2023-02-20 14:13:16.948156 log new session created
+2023-02-20 14:13:28.853653 log log closed correctly
+2023-02-20 14:14:32.907661 log new session created
+2023-02-20 14:14:38.635991 load_game_rules colored_cell: no-numbers found
+2023-02-20 14:14:38.636040 load_game_rules colored_cell: '=' absent
+2023-02-20 14:14:38.636121 load_game_rules colored_cell: value out of range
+2023-02-20 14:14:38.636132 load_game_rules colored_cell: value out of range
+2023-02-20 14:14:38.636171 load_game_rules colored_cell: value out of range
+2023-02-20 14:14:38.638440 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 14:14:38.638667 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-20 14:17:16.212664 log new session created
+2023-02-20 14:17:20.942096 load_game_rules colored_cell: no-numbers found
+2023-02-20 14:17:20.942130 load_game_rules colored_cell: '=' absent
+2023-02-20 14:17:20.942183 load_game_rules colored_cell: value out of range
+2023-02-20 14:17:20.942190 load_game_rules colored_cell: value out of range
+2023-02-20 14:17:20.942222 load_game_rules colored_cell: value out of range
+2023-02-20 14:17:20.943457 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 14:17:20.943669 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-20 14:18:14.435702 log new session created
+2023-02-20 14:18:19.139895 load_game_rules colored_cell: no-numbers found
+2023-02-20 14:18:19.139917 load_game_rules colored_cell: '=' absent
+2023-02-20 14:18:19.139969 load_game_rules colored_cell: value out of range
+2023-02-20 14:18:19.139977 load_game_rules colored_cell: value out of range
+2023-02-20 14:18:19.140003 load_game_rules colored_cell: value out of range
+2023-02-20 14:18:19.142721 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 14:18:19.142948 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-20 14:29:54.101694 log new session created
+2023-02-20 14:30:14.765332 load_game_rules colored_cell: no-numbers found
+2023-02-20 14:30:14.765383 load_game_rules colored_cell: '=' absent
+2023-02-20 14:30:14.765464 load_game_rules colored_cell: value out of range
+2023-02-20 14:30:14.765475 load_game_rules colored_cell: value out of range
+2023-02-20 14:30:14.765514 load_game_rules colored_cell: value out of range
+2023-02-20 14:30:14.766850 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 14:30:14.767069 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-20 14:30:34.495613 log new session created
+2023-02-20 14:30:40.744677 load_game_rules colored_cell: no-numbers found
+2023-02-20 14:30:40.744707 load_game_rules colored_cell: '=' absent
+2023-02-20 14:30:40.744758 load_game_rules colored_cell: value out of range
+2023-02-20 14:30:40.744764 load_game_rules colored_cell: value out of range
+2023-02-20 14:30:40.744790 load_game_rules colored_cell: value out of range
+2023-02-20 14:30:40.745977 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 14:30:40.746194 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-20 14:32:12.350961 log new session created
+2023-02-20 14:32:25.136681 log new session created
+2023-02-20 14:32:29.762898 load_game_rules colored_cell: no-numbers found
+2023-02-20 14:32:29.762923 load_game_rules colored_cell: '=' absent
+2023-02-20 14:32:29.762975 load_game_rules colored_cell: value out of range
+2023-02-20 14:32:29.762982 load_game_rules colored_cell: value out of range
+2023-02-20 14:32:29.763007 load_game_rules colored_cell: value out of range
+2023-02-20 14:32:29.764210 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 14:32:29.764433 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-20 14:32:37.346435 log log closed correctly
+2023-02-20 14:33:20.341557 log new session created
+2023-02-20 14:33:25.548938 load_game_rules colored_cell: no-numbers found
+2023-02-20 14:33:25.548965 load_game_rules colored_cell: '=' absent
+2023-02-20 14:33:25.549016 load_game_rules colored_cell: value out of range
+2023-02-20 14:33:25.549022 load_game_rules colored_cell: value out of range
+2023-02-20 14:33:25.549048 load_game_rules colored_cell: value out of range
+2023-02-20 14:33:25.550114 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 14:33:25.550291 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-20 14:34:53.211945 log new session created
+2023-02-20 14:34:57.813818 load_game_rules colored_cell: no-numbers found
+2023-02-20 14:34:57.813852 load_game_rules colored_cell: '=' absent
+2023-02-20 14:34:57.813903 load_game_rules colored_cell: value out of range
+2023-02-20 14:34:57.813910 load_game_rules colored_cell: value out of range
+2023-02-20 14:34:57.813935 load_game_rules colored_cell: value out of range
+2023-02-20 14:34:57.815164 load_game_rules tn_directs -['9'] : value out of range
+2023-02-20 14:34:57.815382 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-02-28 01:58:58.974813 log new session created
+2023-02-28 01:59:32.484368 log log closed correctly
+2023-02-28 01:59:46.408911 log new session created
+2023-02-28 02:01:57.251767 log log closed correctly
+2023-02-28 19:27:14.032606 log new session created
+2023-02-28 19:31:19.633760 log log closed correctly
+2023-04-12 16:03:16.951445 log new session created
+2023-04-12 16:03:50.258681 log log closed correctly
+2023-04-12 16:20:53.551222 log new session created
+2023-04-12 16:21:48.903004 log log closed correctly
+2023-04-12 17:18:00.220340 log new session created
+2023-04-12 17:19:27.839496 log log closed correctly
+2023-04-12 17:22:54.982574 log new session created
+2023-04-12 17:25:56.688180 log log closed correctly
+2023-04-12 17:47:04.955373 log new session created
+2023-04-12 18:01:19.123547 log new session created
+2023-04-12 18:03:24.199021 log log closed correctly
+2023-04-17 20:17:18.010415 log new session created
+2023-04-17 20:17:26.670183 log log closed correctly
+2023-04-17 20:26:16.331641 log new session created
+2023-04-17 20:26:32.411241 load_game_rules colored_cell: no-numbers found
+2023-04-17 20:26:32.411287 load_game_rules colored_cell: '=' absent
+2023-04-17 20:26:32.411369 load_game_rules colored_cell: value out of range
+2023-04-17 20:26:32.411380 load_game_rules colored_cell: value out of range
+2023-04-17 20:26:32.411420 load_game_rules colored_cell: value out of range
+2023-04-17 20:26:32.415652 load_game_rules tn_directs -['9'] : value out of range
+2023-04-17 20:26:32.415899 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-04-17 20:26:35.381877 load_game_rules colored_cell: no-numbers found
+2023-04-17 20:26:35.381901 load_game_rules colored_cell: '=' absent
+2023-04-17 20:26:35.381948 load_game_rules colored_cell: value out of range
+2023-04-17 20:26:35.381955 load_game_rules colored_cell: value out of range
+2023-04-17 20:26:35.381980 load_game_rules colored_cell: value out of range
+2023-04-17 20:26:35.383110 load_game_rules tn_directs -['9'] : value out of range
+2023-04-17 20:26:35.383287 load_game_rules win_cond_pos - [0, '11', '2'] : value out of range
+2023-04-17 20:26:39.993127 load_game_rules GB_SECOND_COLOR: ';' absent
+2023-04-17 20:26:41.725837 log log closed correctly
+2023-04-17 20:27:30.841510 log new session created
+2023-04-17 20:27:46.077564 log log closed correctly
+2023-04-18 10:50:34.549969 log new session created
+2023-04-18 10:55:37.217043 log log closed correctly
+2023-04-18 10:55:40.945647 log new session created
+2023-04-18 10:59:31.419141 log log closed correctly
+2023-04-20 16:05:53.829376 log new session created
+2023-04-20 16:07:19.213358 log log closed correctly
+2023-04-20 16:13:06.290294 log new session created
+2023-04-20 16:45:57.340821 log log closed correctly
+2023-04-20 16:47:02.504430 log new session created
+2023-04-20 16:49:04.697797 log log closed correctly
+2023-04-20 16:57:21.097827 log new session created
+2023-04-20 16:58:54.132523 log log closed correctly
+2023-04-20 17:15:42.805567 log new session created
+2023-04-20 17:17:46.700421 log log closed correctly
+2023-04-20 17:18:12.730451 log new session created
+2023-04-20 17:19:39.419391 log log closed correctly

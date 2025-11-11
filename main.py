@@ -58,7 +58,7 @@ def add_turn():
 
 def init_turns(ind):
     global g_turns
-    ## я не сделал всё через генератор списка, чтобы оставить комментарии, по которым я потом смогу понять, что делает эта функция
+    # я не сделал всё через генератор списка, чтобы оставить комментарии, по которым я потом смогу понять, что делает эта функция
     g_turns[ind][0] = []  # фигуры, которые могут совершать этот ход
     g_turns[ind][1] = []  # направления, в которых может быть совершён ход
     g_turns[ind][2] = []  # перечисление возможной длины ходов
@@ -85,11 +85,13 @@ g_COLORED_TOPLEFT_FL = False  # будет ли закрашена верхня�
 g_WIDTH = g_CELLS_WIDTH * g_SIZE_OF_CELL
 g_HEIGHT = g_CELLS_HEIGHT * g_SIZE_OF_CELL
 lst_game_board = [[None for _ in range(g_CELLS_WIDTH)] for _ in range(g_CELLS_HEIGHT)]
+figures_by_players_sg_lst = list()  # список, содержащий группы спрайтов. Каждая группа содержит все фигуры какого-то одного игрока
 g_game_status = None  # отвечает за игровой статус. None - не начата; False - начата; True - завершена
 g_file_name_rules = ""
 g_colored_cells_lst = list()
 g_loaded_cells_lst = list()
 g_special_cells_lst = list()
+g_blocked_cells_lst = list()
 g_win_conditions_pos = list()
 g_win_conditions_num = list()
 g_history_of_a_game = list()  # сюда будут записываться ходы игроков
@@ -107,8 +109,9 @@ g_showing_whats_new_fl = False
 def init_rules():
     """ Возвращает все переменные к стартовым настройкам."""
     global g_game_name, g_CELLS_WIDTH, g_CELLS_HEIGHT, g_SIZE_OF_CELL, g_GAME_BOARD_COLOUR, g_SECOND_GAME_BOARD_COLOUR, g_COLORED_TOPLEFT_FL, \
-        g_figure_types, g_WIDTH, g_HEIGHT, lst_game_board, \
-        g_turns, g_PLAYER_COUNT, g_CURRENT_PLAYER, g_game_status, g_special_cells_lst, g_win_conditions_pos, g_win_conditions_num, g_MAX_PRIORITY_TURN, \
+        g_figure_types, g_WIDTH, g_HEIGHT, lst_game_board, figures_by_players_sg_lst, \
+        g_turns, g_PLAYER_COUNT, g_CURRENT_PLAYER, g_game_status, g_special_cells_lst, g_blocked_cells_lst, \
+        g_win_conditions_pos, g_win_conditions_num, g_MAX_PRIORITY_TURN, \
         g_colored_cells_lst, g_loaded_cells_lst, g_history_of_a_game
     g_game_name = "This game has no name. It will never be the same"
     g_CELLS_WIDTH = 8  # ширина игрового поля в клетках
@@ -132,6 +135,7 @@ def init_rules():
     g_MAX_PRIORITY_TURN = 0
 
     lst_game_board = [[None for _ in range(g_CELLS_WIDTH)] for _ in range(g_CELLS_HEIGHT)]
+    figures_by_players_sg_lst = []
 
     g_game_status = None
 
@@ -139,6 +143,7 @@ def init_rules():
     g_loaded_cells_lst = []
 
     g_special_cells_lst = []
+    g_blocked_cells_lst = []
 
     g_win_conditions_pos = []
     g_win_conditions_num = []
@@ -233,17 +238,17 @@ def align_const(arg):  # Принимает на вход аргумент
         return arg // g_SIZE_OF_CELL
 
 
+def anti_align_const(arg):
+    if type(arg) is tuple:  # Если это кортеж или список,
+        return arg[0] * g_SIZE_OF_CELL + g_SIZE_OF_CELL // 2, arg[1] * g_SIZE_OF_CELL + g_SIZE_OF_CELL // 2
+    else:
+        return arg * g_SIZE_OF_CELL + g_SIZE_OF_CELL // 2
+
+
 def find_figure_by_coors(coors):
     for fig in all_figures:
         if fig.rect.center == coors:
             return fig
-
-
-def anti_align_const(arg):
-    if type(arg) is tuple:  # Если это кортеж или список,
-        return arg[0] * g_SIZE_OF_CELL + g_SIZE_OF_CELL // 2, arg[1]  * g_SIZE_OF_CELL + g_SIZE_OF_CELL // 2
-    else:
-        return arg * g_SIZE_OF_CELL + g_SIZE_OF_CELL // 2
 
 
 
@@ -390,7 +395,7 @@ def load_game_rules(file_name):
                 # по умолчанию устанавливаем туда чёрный
                 if file_string.find("=") > -1:
                     if file_string.find(";") > -1:
-                        temp_rap_fs = replace_all_punc(file_string)  # temp replaced-all-punc file_string
+                        temp_rap_fs = remove_all_punc(file_string)  # temp replaced-all-punc file_string
                         #print(temp_rap_fs[temp_rap_fs.find("=") + 1: temp_rap_fs.find(";")])
                         if temp_rap_fs[temp_rap_fs.find("=") + 1: temp_rap_fs.find(";")].replace(" ", "").isdigit():
                             term_lst = list(map(int, temp_rap_fs[temp_rap_fs.find("=") + 1: temp_rap_fs.find(";")].strip().split()))
@@ -417,11 +422,12 @@ def load_game_rules(file_name):
                     #print(replace_all_punc(file_string).replace("-", "").replace(" ", "")[replace_all_punc(file_string)
                                                                                                #.replace("-", "").replace(" ", "")
                                                                                                #.index("=") + 1:].strip().isdigit())
-                    if replace_all_punc(file_string).replace(";", "").replace("-", "").replace("_", "").replace(" ", "")[replace_all_punc(file_string)
+                    if remove_all_punc(file_string).replace(";", "").replace("-", "").replace("_", "").replace(" ", "")[remove_all_punc(
+                            file_string)
                                .replace("-", "").replace("_", "").replace(" ", "").index("=") + 1:].strip().isdigit():
                         #print("OK")
                         #print(replace_all_punc(file_string)[file_string.index("=") + 1:])
-                        term_lst = list(map(int, all_punc_to_whitespases(file_string)
+                        term_lst = list(map(int, all_punc_to_whitespaces(file_string, )
                                             .replace(";", " ").replace("_", " ")[file_string.index("=") + 1:].split()))
                         term_lst[0] -= 1
                         term_lst[1] -= 1
@@ -492,7 +498,8 @@ def load_game_rules(file_name):
                     if file_string.count(";") == 1:
                         term_lst = file_string.split(";")
                         #print(term_lst)
-                        term_lst[0] = all_punc_to_whitespases(term_lst[0])[all_punc_to_whitespases(term_lst[0]).index("=") + 1:].strip()
+                        term_lst[0] = all_punc_to_whitespaces(term_lst[0], )[
+                                      all_punc_to_whitespaces(term_lst[0], ).index("=") + 1:].strip()
                         #print(term_lst[0])
                         if term_lst[0].replace(" ", "").isdigit():
                             #print("OK")
@@ -566,8 +573,8 @@ def load_game_rules(file_name):
                 if file_string.find("=") > -1:
                     if file_string[file_string.find("=") + 1:].strip().isdigit():
                         g_figure_types[l_current_figure_type][0] = int(file_string[file_string.find("=") + 1:])
-                        # обновим число игроков в игре
 
+                        # обновим число игроков в игре
                         if g_PLAYER_COUNT < int(file_string[file_string.find("=") + 1:]):
                             g_PLAYER_COUNT = int(file_string[file_string.find("=") + 1:])
                         if c_MAX_PLAYER_COUNT < int(file_string[file_string.find("=") + 1:]):
@@ -695,7 +702,35 @@ def load_game_rules(file_name):
                             log_write(l_s_source_name, "gm_brd_sp_add: num of sets is not 2")
                 else:
                     l_error_on_load_fl = True
-                    log_write(l_s_source_name, "tn_figures: '=' absent")
+                    log_write(l_s_source_name, "gm_brd_sp_add: '=' absent")
+
+            elif file_string[:12] == "blocked_cell":
+                equal_sign_pos = file_string.find("=")
+                if equal_sign_pos > -1:
+                    if file_string.find(";") > -1:
+                        bs_list = remove_all_punc(file_string[equal_sign_pos+1:], ',', ';').split(';', maxsplit=1)
+                        #print(bs_list)#
+                        if bs_list[0].count(',') == 1:
+                            l_coors = tuple(map(int, bs_list[0].split(',')))
+                            g_blocked_cells_lst.append([])
+                            g_blocked_cells_lst[-1].append(l_coors)
+                            g_blocked_cells_lst[-1].append([])
+                            #if bs_list[1].count(';') == 0:
+                                #for bc in bs_list[1].split(';'):
+
+                            #else:
+                                #l_error_on_load_fl = True
+                                #log_write(l_s_source_name, "blocked_cell: multiple ';'")
+
+                        else:
+                            l_error_on_load_fl = True
+                            log_write(l_s_source_name, f"blocked_cell: incorrect number of ',' in coors ({bs_list[0].count(',')})")
+                    else:
+                        l_error_on_load_fl = True
+                        log_write(l_s_source_name, "blocked_cell: ';' absent")
+                else:
+                    l_error_on_load_fl = True
+                    log_write(l_s_source_name, "blocked_cell: '=' absent")
 
             elif file_string[:8] == "turn_add":  # Начинаем обработку ходов
                 l_current_turn += 1
@@ -1089,7 +1124,7 @@ class Figure(pygame.sprite.Sprite):
         self.player_num = g_figure_types[type_of_figure][0]
         #lst_game_board[y][x] = self.side
 
-    def movement(self, coors):  # принимает на вход координаты destination на поле в виде котрежа
+    def movement(self, coors):  # принимает на вход координаты destination на поле в виде кортежа
 
         if lst_game_board[align_const(coors[1])][align_const(coors[0])] is not None:  # если клетка, на которую мы встаём, не пустая
             find_figure_by_coors(align(coors)).kill()
@@ -1164,7 +1199,7 @@ class Button(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-    def on_button_new_click(self):
+    def on_button_click(self):
         global g_file_name_rules, manager, g_modal_window, g_file_selection, whats_new_window, g_WIDTH, g_HEIGHT, g_showing_whats_new_fl
 
         if self.Name == "button_load":
@@ -1189,15 +1224,15 @@ class Button(pygame.sprite.Sprite):
 
 
 class Point(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, colour, group):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((g_SIZE_OF_CELL * 0.5, g_SIZE_OF_CELL * 0.5))
-        self.image.set_colorkey((0, 0, 0))
-        pygame.draw.circle(self.image, DARK_GREY, (g_SIZE_OF_CELL * 0.25, g_SIZE_OF_CELL * 0.25), g_SIZE_OF_CELL * 0.25)
+        self.image.set_colorkey(BLACK)
+        pygame.draw.circle(self.image, colour, (g_SIZE_OF_CELL * 0.25, g_SIZE_OF_CELL * 0.25), g_SIZE_OF_CELL * 0.25)
         self.rect = self.image.get_rect()
         self.rect.center = ((x + 0.5) * g_SIZE_OF_CELL, (y + 0.5) * g_SIZE_OF_CELL)
         all_sprites.add(self)
-        points.add(self)
+        group.add(self)
 
 
 class Scrollbar(pygame.sprite.Sprite):
@@ -1347,11 +1382,9 @@ def is_any_turns_f(player_num):
     print_info("checking movement for player " + str(player_num) + "...")
     l_res_fl = False
 
-    for fig in all_figures:
-                if fig.player_num == player_num:
+    for fig in figures_by_players_sg_lst[player_num - 1]:
                     for y_des in range(len(lst_game_board)):
                         for x_des in range(len(lst_game_board[y_des])):
-                            #print(x_des, y_des)
                             if (align_const(fig.rect.centerx) != x_des) or (align_const(fig.rect.centery) != y_des):
                                 if is_turn_possible_f(fig, (x_des, y_des)) is not None:
                                     l_res_fl = True
@@ -1560,8 +1593,9 @@ def check_table_field(event):
 
 
 def game_board_loading():
-    """ Создание и покраска игрового поля, расстановка фигур """
-    global screen, g_WIDTH, g_HEIGHT, g_CELLS_WIDTH, g_CELLS_HEIGHT, g_SIZE_OF_CELL, lst_game_board, stroke, interface_screen
+    """ Создание и покраска игрового поля, расстановка фигур,
+       а также инициализация тех переменных, значения которых не прописываются в файле с правилами напрямую"""
+    global screen, g_WIDTH, g_HEIGHT, g_CELLS_WIDTH, g_CELLS_HEIGHT, g_SIZE_OF_CELL, lst_game_board, stroke, interface_screen, figures_by_players_sg_lst
 
     g_WIDTH = g_CELLS_WIDTH * g_SIZE_OF_CELL
     g_HEIGHT = g_CELLS_HEIGHT * g_SIZE_OF_CELL
@@ -1570,6 +1604,8 @@ def game_board_loading():
     interface_screen.fill(DARK_GREY)
     pygame.draw.line(interface_screen, BLACK, [0, 5], [g_WIDTH, 5], 10)
     pygame.display.set_caption(g_game_name)
+
+    figures_by_players_sg_lst = [pygame.sprite.Group() for _ in range(g_PLAYER_COUNT)]
 
     # создаём границы
     for i in range(0, g_CELLS_WIDTH + 1):
@@ -1585,10 +1621,12 @@ def game_board_loading():
     # создаём фигуры
     for j in range(len(lst_game_board)):
         for i in range(len(lst_game_board[j])):  # перебираем координаты каждой фигуры, которую нам предстоит разместить на игровом поле
-            if type(lst_game_board[j][i]) is int:
-                figure = Figure(i, j, lst_game_board[j][i])
+            cur_cell = lst_game_board[j][i]
+            if type(cur_cell) is int:
+                figure = Figure(i, j, cur_cell)
                 all_figures.add(figure)
                 all_sprites.add(figure)
+                figures_by_players_sg_lst[figure.player_num - 1].add(figure)
 
     update_which_figures_can_move()
 
@@ -1597,7 +1635,7 @@ def game_board_loading():
         for j in range(g_CELLS_HEIGHT):
             for i in range((j % 2 == 0) != g_COLORED_TOPLEFT_FL, g_CELLS_WIDTH, 2):
                 cell = ColoredCell(g_SIZE_OF_CELL - 2, i, j, g_SECOND_GAME_BOARD_COLOUR)
-                drawn_two_color_cells.add(cell)
+                drawn_second_color_cells.add(cell)
     for cs_lst in g_colored_cells_lst:
         cell = ColoredCell(cs_lst[0], cs_lst[1], cs_lst[2], cs_lst[3])
         drawn_colored_cells.add(cell)
@@ -1620,12 +1658,10 @@ def process_move_consequences(rule_num, fig_pos):
      rule_num - номер разрешающего правила (turns)
      fig_pos - координаты фигуры, тип event.pos"""
     l_s_source_name = "process_move_consequences"
-    #print('rule', rule_num)
     if rule_num is not None:
         if 0 < rule_num < len(g_turns):
             # работаем с ним
             for l_cur_action in g_turns[rule_num][5]:  # перебираем actions текущего хода
-                #print('action', l_cur_action)
                 for l_cur_dir in l_cur_action[0]:  # перебираем направления текущего action
                     if l_cur_dir == 1:
                         dx = 1
@@ -1662,41 +1698,31 @@ def process_move_consequences(rule_num, fig_pos):
                         l_pattern_fl = True
                         for i_loc in range(1, len(l_cur_action) - 1):
                             l_value_lgb = lst_game_board[fig_pos[1] + i_loc * dy][fig_pos[0] + i_loc * dx]
-                            #print('0 in', 0 in l_cur_action[i_loc])
-                            #print('lgb in', l_value_lgb in l_cur_action[i_loc])
                             if (0 in l_cur_action[i_loc]) or (l_value_lgb in l_cur_action[i_loc]):
                                 l_pattern_fl = l_pattern_fl  # заглушка
                             else:
                                 l_pattern_fl = False
 
                         # шаблон совпал с реальностью
-                        #print('l_pattern_fl =', l_pattern_fl)
                         if l_pattern_fl:
                             for i_loc in range(1, len(l_cur_action[-1]) + 1):
-                                #print('by i_loc', l_cur_action[-1][i_loc - 1])
-                                #print('dir', l_cur_dir)
-                                #print('lst_game_board', lst_game_board[fig_pos[1] + i_loc * dy][fig_pos[0] + i_loc * dx])
-                                #print('l_cur_action', l_cur_action[-1])
                                 if l_cur_action[-1][i_loc - 1] is None:
                                     i_loc = i_loc
                                 elif l_cur_action[-1][i_loc - 1] == 0:
                                     # удаляем
-                                    #for ggg in lst_game_board: print('before kill:', ggg)
                                     lst_game_board[fig_pos[1] + i_loc * dy][fig_pos[0] + i_loc * dx] = None
-                                    #for ggg in lst_game_board: print('after new:', ggg)
                                     for fig in all_figures:
                                         if align_const(fig.rect.center) == (fig_pos[0] + i_loc * dx, fig_pos[1] + i_loc * dy):
                                             fig.kill()
                                 else:
-                                    #for ggg in lst_game_board: print('before kill:', ggg)
                                     lst_game_board[fig_pos[1] + i_loc * dy][fig_pos[0] + i_loc * dx] = l_cur_action[-1][i_loc - 1]
-                                    #for ggg in lst_game_board: print('after new:', ggg)
                                     for fig in all_figures:
                                         if align_const(fig.rect.center) == (fig_pos[0] + i_loc * dx, fig_pos[1] + i_loc * dy):
                                             fig.kill()
                                     figure = Figure(fig_pos[0] + i_loc * dx, fig_pos[1] + i_loc * dy, l_cur_action[-1][i_loc - 1])
                                     all_figures.add(figure)
                                     all_sprites.add(figure)
+                                    figures_by_players_sg_lst[figure.player_num - 1].add(figure)
 
 
         else:
@@ -1708,7 +1734,6 @@ def process_move_consequences(rule_num, fig_pos):
 def process_special_cells():
     global lst_game_board, g_special_cells_lst
     for l_list in g_special_cells_lst:  # l_list - одна запись
-        #print(l_list)
         if lst_game_board[l_list[0][1]][l_list[0][0]] == l_list[0][2]:
             lst_game_board[l_list[0][1]][l_list[0][0]] = None
             for fig in all_figures:
@@ -1718,20 +1743,27 @@ def process_special_cells():
             figure = Figure(l_list[1][0], l_list[1][1], l_list[1][2])
             all_figures.add(figure)
             all_sprites.add(figure)
+            figures_by_players_sg_lst[figure.player_num - 1].add(figure)
 
 
-def make_points(figure):
+def make_possible_turn_markers(figure):
     for j in range(len(lst_game_board)):
         for i in range(len(lst_game_board[j])):
             if is_turn_possible_f(figure, (i, j)) is not None:
                 if g_turns[is_turn_possible_f(figure, (i, j))][6] == g_MAX_PRIORITY_TURN or \
                         figure.in_composite_turn and g_turns[is_turn_possible_f(figure, (i, j))][6] == max_priority_turn_f(figure):
-                    Point(i, j)
+                    Point(i, j, DARK_GREY, possible_turn_markers)
 
 
-def remove_points():
+def remove_possible_turn_markers():
     """ Убирает с доски точки, отмечающие клетки для возможных ходов."""
-    for pt in points:
+    for pt in possible_turn_markers:
+        pt.kill()
+
+
+def remove_made_turn_markers():
+    """ Убирает с доски точки, отмечающие совершённый ход."""
+    for pt in made_turn_markers:
         pt.kill()
 
 
@@ -1757,21 +1789,21 @@ init_rules()
 # Подготовка основного скрипта
 pygame.init()
 clock = pygame.time.Clock()
+all_sprites = pygame.sprite.Group()
 borders = pygame.sprite.Group()
 all_figures = pygame.sprite.Group()
-all_sprites = pygame.sprite.Group()
 strokes = pygame.sprite.Group()
 buttons = pygame.sprite.Group()
-points = pygame.sprite.Group()
+possible_turn_markers = pygame.sprite.Group()
+made_turn_markers = pygame.sprite.Group()
 scrollers = pygame.sprite.Group()
-drawn_two_color_cells = pygame.sprite.Group()
+drawn_second_color_cells = pygame.sprite.Group()
 drawn_colored_cells = pygame.sprite.Group()
 drawn_loaded_cells = pygame.sprite.Group()
 
 manager = pygame_gui.UIManager((g_WIDTH, g_HEIGHT + 150))
 
 game_board_loading()
-
 
 whats_new_window = pygame.Surface((g_WIDTH * 0.5, g_HEIGHT * 0.75))
 whats_new_window_rect = whats_new_window.get_rect()
@@ -1849,10 +1881,10 @@ draw_text(button_of_load.image, "Load", 30, BLACK, 0, -1)
 buttons.add(button_of_load)
 
 
-button_of_release_notes = Button(10, 115, (70, 20), "button_release_notes")
-draw_text(button_of_release_notes.image, "Updates", 18, BLACK, 0, -1)
+#button_of_release_notes = Button(10, 115, (70, 20), "button_release_notes")
+#draw_text(button_of_release_notes.image, "Updates", 18, BLACK, 0, -1)
 #button_of_release_notes.rect.center = 30, 70
-buttons.add(button_of_release_notes)
+#buttons.add(button_of_release_notes)
 
 
 # Для отладки
@@ -1878,15 +1910,18 @@ while running:
                         cur_fig = find_figure_by_coors(align(event.pos))
                         if cur_fig.can_move:  # если эта фигура может ходить
                                     abs_max_priority_turn()
-                                    remove_points()
+                                    remove_possible_turn_markers()
                                     chosen_source_fig = cur_fig
                                     stroke.rect.center = cur_fig.rect.center
                                     l_source_fl = True
                                     source_coors = chosen_source_fig.rect.center  # координаты на доске
                                     l_dest_fl = False
-                                    make_points(cur_fig)
+                                    make_possible_turn_markers(cur_fig)
+                        else:  # если эта фигура не может ходить
+                            l_dest_fl = True
+                            dest_coors = align(event.pos)  # координаты на доске
 
-                    else:  # Если   мы щёлкнули по чему-то, что не является нашей фигурой    пустое поле
+                    else:  # Если мы щёлкнули по пустому полю
                         l_dest_fl = True
                         dest_coors = align(event.pos)  # координаты на доске
 
@@ -1897,14 +1932,17 @@ while running:
                         # если такой ход этой фигурой допустим
                         l_turn_result = is_turn_possible_f(chosen_source_fig, destination_pos_gbl)
                         if l_turn_result is not None:
-                            #print(chosen_source_fig.in_composite_turn, chosen_source_fig.can_move, l_turn_result, '',
-                                  #g_turns[l_turn_result][6], g_MAX_PRIORITY_TURN, max_priority_turn_f(chosen_source_fig))
+
                             if g_turns[l_turn_result][6] == g_MAX_PRIORITY_TURN or \
                                     chosen_source_fig.in_composite_turn and g_turns[l_turn_result][6] == max_priority_turn_f(chosen_source_fig):
+                                if not chosen_source_fig.in_composite_turn:
+                                    remove_made_turn_markers()
                                 # занести запись о ходе в лог партии
-                                g_history_of_a_game.append(g_turns[l_turn_result])
-                                # убрать маркеры - обозначения ходов
-                                remove_points()
+                                g_history_of_a_game.append([chosen_source_fig.player_num, l_turn_result, source_pos_gbl, destination_pos_gbl])
+                                # убрать маркеры - обозначения возможных ходов
+                                remove_possible_turn_markers()
+                                # поставить маркер совершённого хода
+                                Point(*source_pos_gbl, NAVY, made_turn_markers)
                                 # выполнить ход
                                 chosen_source_fig.movement(event.pos)
                                 # отработать последствия хода
@@ -1966,7 +2004,7 @@ while running:
                 for butt in buttons:
                     if (butt.rect.x < event.pos[0] < butt.rect.bottomright[0]) and \
                             (butt.rect.y < event.pos[1] - g_HEIGHT < butt.rect.bottomright[1]):
-                        butt.on_button_new_click()
+                        butt.on_button_click()
 
         elif event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == g_file_selection.ok_button:
@@ -2012,11 +2050,12 @@ while running:
     screen.fill(g_GAME_BOARD_COLOUR)
     '''screen.blit(logo, logo_rect)'''
     borders.draw(screen)
-    drawn_two_color_cells.draw(screen)
+    drawn_second_color_cells.draw(screen)
     drawn_colored_cells.draw(screen)
     drawn_loaded_cells.draw(screen)
     all_figures.draw(screen)
-    points.draw(screen)
+    made_turn_markers.draw(screen)
+    possible_turn_markers.draw(screen)
     strokes.draw(screen)
     screen.blit(interface_screen, (0, g_HEIGHT))
     buttons.draw(interface_screen)
@@ -2031,4 +2070,4 @@ pygame.quit()
 
 log_close()
 
-# Комметарии, которые мне ещё пригодятся
+# Комментарии, которые мне ещё пригодятся

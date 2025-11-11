@@ -1,0 +1,7 @@
+CELLS_WIDTH = 16  # ширина игрового поля в клетках
+CELLS_HEIGHT = 16  # высота игрового поля в клетках
+SIZE_OF_CELL = 50  # размер одной клетки в пикселях
+GB_COLOR_RED = 128  # Цвет игрового поля (RGB)
+GB_COLOR_GREEN = 128  # Цвет игрового поля (RGB)
+GB_COLOR_BLUE = 128  # Цвет игрового поля (RGB)
+GB_SECOND_COLOR = (0, 0, 0)

@@ -1,15 +1,17 @@
-def replace_all_punc(s):
+def remove_all_punc(s, *exceptions):
     pm_set = {".", ",", ":", "?", "!", "(", ")", "\n"}
     for pm in pm_set:
-        s = s.replace(pm, "")
+        if pm not in exceptions:
+            s = s.replace(pm, "")
     return s
 # на будущее: сделать возможность указывать, какие именно символы не нужно удалять
 
 
-def all_punc_to_whitespases(s):
+def all_punc_to_whitespaces(s, *exceptions):
     pm_set = {".", ",", ":", "?", "!", "(", ")", "\n"}
     for pm in pm_set:
-        s = s.replace(pm, " ")
+        if pm not in exceptions:
+            s = s.replace(pm, " ")
     return s
 
 
